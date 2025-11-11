@@ -6,7 +6,7 @@
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 11:20:22 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/11 18:23:48 by jodone           ###   ########.fr       */
+/*   Updated: 2025/11/11 18:45:06 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,30 @@ void	key_hook(int key, void *param)
 		mlx_loop_end((mlx_context)param);	
 }
 
-void window_hook(int event, void *param)
+void	window_hook(int event, void *param)
 {
 	if (event == 0)
 		mlx_loop_end((mlx_context)param);
+}
+
+int	count_height(char **map)
+{
+	int	i;
+	
+	i = 0;
+	while (map[i])
+		i++;
+	return (i);
+}
+
+int	count_width(char **map)
+{
+	int	i;
+	
+	i = 0;
+	while (map[0][i])
+		i++;
+	return (i);
 }
 
 void	display_map(mlx_t *mlx, char **map)
@@ -90,10 +110,13 @@ int main(void)
 	
     mlx.cont = mlx_init();
 
+	char	**map;
+	map = load_map("./maps/tuto.ber");
+
 	mlx_window_create_info info = { 0 };
 	info.title = "test";
-	info.width = 1920;
-	info.height = 1080;
+	info.width = (count_width(map) - 1) * 100;
+	info.height = count_height(map) * 100;
 	info.is_resizable = 1;
 	mlx.win = mlx_new_window(mlx.cont, &info);
 
@@ -105,8 +128,6 @@ int main(void)
 	mlx.collect = mlx_new_image_from_file(mlx.cont, "./textures/collect.png", &img_width, &img_height);
 	mlx.exit = mlx_new_image_from_file(mlx.cont, "./textures/exit.png", &img_width, &img_height);
 
-	char	**map;
-	map = load_map("./maps/tuto.ber");
 	display_map(&mlx, map);
 	
 	mlx_on_event(mlx.cont, mlx.win, MLX_KEYDOWN, key_hook, mlx.cont);
