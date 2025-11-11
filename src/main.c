@@ -5,26 +5,34 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/06 16:43:57 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/10 18:15:26 by jodone           ###   ########.fr       */
+/*   Created: 2025/11/11 11:20:22 by jodone            #+#    #+#             */
+/*   Updated: 2025/11/11 18:23:48 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "/home/jodone/Documents/42_folder/so_long/mlx/includes/mlx.h"
+#include <mlx.h>
+#include <mlx_extended.h>
+
+char	**load_map(const char *file);
 
 typedef struct
 {
-	mlx_context	mlx;
+	mlx_context	cont;
 	mlx_window	win;
-	mlx_image	knight;
-	int			x;
-	int			y;
+	mlx_image	wall;
+	mlx_image	floor;
+	mlx_image	player;
+	mlx_image	collect;
+	mlx_image	exit;
 } mlx_t;
 
 void	key_hook(int key, void *param)
 {
+	// w = 26, a = 4, s = 22, d = 7, space = 44
+	static int x = 1;
+	static int y = 1;
 	if (key == 41)
-		mlx_loop_end((mlx_context)param);
+		mlx_loop_end((mlx_context)param);	
 }
 
 void window_hook(int event, void *param)
@@ -33,44 +41,84 @@ void window_hook(int event, void *param)
 		mlx_loop_end((mlx_context)param);
 }
 
-void update(void *param)
+void	display_map(mlx_t *mlx, char **map)
 {
-	mlx_t	*mlx = (mlx_t*)param;
-	static int	x = 1;
-	static int	y = 1;
-	
-    mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->knight, x, y);
-	x += 120;
+	int	x;
+	int	y;
+	int	w;
+	int	h;
+
+	x = 0;
+	y = 0;
+	h = -1;
+	while (map[y])
+	{
+		w = 1;
+		x = 0;
+		while (map[y][x])
+		{
+			if (map[y][x] == '1')
+				mlx_put_transformed_image_to_window(mlx->cont, mlx->win, mlx->wall, w, h, 0.1358f, 0.1358f, 0);
+			else if (map[y][x] == 'P')
+			{
+				mlx_put_transformed_image_to_window(mlx->cont, mlx->win, mlx->floor, w, h, 0.1358f, 0.1358f, 0);
+				mlx_put_transformed_image_to_window(mlx->cont, mlx->win, mlx->player, w, h - 50, 0.75f, 0.75f, 0);
+			}
+			else if (map[y][x] == 'C')
+			{
+				mlx_put_transformed_image_to_window(mlx->cont, mlx->win, mlx->floor, w, h, 0.1358f, 0.1358f, 0);
+				mlx_put_transformed_image_to_window(mlx->cont, mlx->win, mlx->collect, w + 10, h, 0.60f, 0.60f, 0);
+			}
+			else if (map[y][x] == 'E')
+			{
+				mlx_put_transformed_image_to_window(mlx->cont, mlx->win, mlx->floor, w, h, 0.1358f, 0.1358f, 0);
+				mlx_put_transformed_image_to_window(mlx->cont, mlx->win, mlx->exit, w + 15, h + 15, 0.17f, 0.17f, 0);
+			}
+			else if (map[y][x] != '\n')
+				mlx_put_transformed_image_to_window(mlx->cont, mlx->win, mlx->floor, w, h, 0.1358f, 0.1358f, 0);
+			w += 100;
+			x++;
+		}
+		y++;
+		h += 100;
+	}
 }
 
-int	main(void)
+int main(void)
 {
-	mlx_t	mlx;
-	mlx_t	knight;
-
-	mlx.mlx = mlx_init();
+	mlx_t mlx;
+	
+    mlx.cont = mlx_init();
 
 	mlx_window_create_info info = { 0 };
 	info.title = "test";
 	info.width = 1920;
 	info.height = 1080;
 	info.is_resizable = 1;
-	mlx.win = mlx_new_window(mlx.mlx, &info);
+	mlx.win = mlx_new_window(mlx.cont, &info);
 
 	int	img_width;
 	int	img_height;
-	mlx_image	img = mlx_new_image_from_file(mlx.mlx, "./assets/med.png", &img_width, &img_height);
-	mlx_image	kngiht = mlx_new_image_from_file(mlx.mlx, "./assets/knight.jpg", &img_height, &img_height);
+	mlx.floor = mlx_new_image_from_file(mlx.cont, "./textures/floor.jpg", &img_width, &img_height);
+	mlx.wall = mlx_new_image_from_file(mlx.cont, "./textures/wall.jpg", &img_width, &img_height);
+	mlx.player = mlx_new_image_from_file(mlx.cont, "./textures/player.png", &img_width, &img_height);
+	mlx.collect = mlx_new_image_from_file(mlx.cont, "./textures/collect.png", &img_width, &img_height);
+	mlx.exit = mlx_new_image_from_file(mlx.cont, "./textures/exit.png", &img_width, &img_height);
 
-	mlx_put_image_to_window(mlx.mlx, mlx.win, img, 1, 1);
+	char	**map;
+	map = load_map("./maps/tuto.ber");
+	display_map(&mlx, map);
+	
+	mlx_on_event(mlx.cont, mlx.win, MLX_KEYDOWN, key_hook, mlx.cont);
+	mlx_on_event(mlx.cont, mlx.win, MLX_WINDOW_EVENT, window_hook, mlx.cont);
 
-	mlx_on_event(mlx.mlx, mlx.win, MLX_KEYDOWN, key_hook, mlx.mlx);
-	mlx_on_event(mlx.mlx, mlx.win, MLX_WINDOW_EVENT, window_hook, mlx.mlx);
+	mlx_loop(mlx.cont);
 
-	mlx_add_loop_hook(mlx.mlx, update, &mlx);
-	mlx_loop(mlx.mlx);
-
-	mlx_destroy_image(mlx.mlx, img);
-	mlx_destroy_window(mlx.mlx, mlx.win);
-	mlx_destroy_context(mlx.mlx);
+	mlx_destroy_image(mlx.cont, mlx.exit);
+	mlx_destroy_image(mlx.cont, mlx.collect);
+	mlx_destroy_image(mlx.cont, mlx.player);
+	mlx_destroy_image(mlx.cont, mlx.wall);
+	mlx_destroy_image(mlx.cont, mlx.floor);
+	mlx_destroy_window(mlx.cont, mlx.win);
+    mlx_destroy_context(mlx.cont);
 }

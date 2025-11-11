@@ -6,7 +6,7 @@
 #    By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/06 10:31:35 by jodone            #+#    #+#              #
-#    Updated: 2025/11/07 10:57:41 by jodone           ###   ########.fr        #
+#    Updated: 2025/11/11 14:17:15 by jodone           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ NAME=so_long
 MLX_DIR= mlx/
 SRC_DIR= src/
 
-SRC= $(SRC_DIR)main.c
+SRC= $(SRC_DIR)main.c \
+	$(SRC_DIR)map.c
 
 INCLUDES=-I include \
 		-I Great_Libft/Libft \
