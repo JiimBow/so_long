@@ -1,53 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player_pos.c                                       :+:      :+:    :+:   */
+/*   ft_destroy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/12 13:36:07 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/12 16:03:39 by jodone           ###   ########.fr       */
+/*   Created: 2025/11/12 17:46:14 by jodone            #+#    #+#             */
+/*   Updated: 2025/11/12 18:05:59 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	pos_y(char **map, char c)
-{
-	int	x;
-	int	y;
-	
-	x = 0;
-	y = 0;
-	while (map[y])
-	{
-		x = 0;
-		while (map[y][x])
-		{
-			if (map[y][x] == c)
-				return (y);
-			x++;
-		}
-		y++;
-	}
-	return (0);
-}
+#include <so_long.h>
 
-int	pos_x(char **map, char c)
+void	ft_destroy(void *param)
 {
-	int	x;
-	int	y;
-	
-	x = 0;
-	y = 0;
-	while (map[y])
-	{
-		x = 0;
-		while (map[y][x])
-		{
-			if (map[y][x] == c)
-				return (x);
-			x++;
-		}
-		y++;
-	}
-	return (0);
+	t_mlx *mlx;
+
+	mlx = (t_mlx *)param;
+	mlx_destroy_image(mlx->cont, mlx->exit);
+	mlx_destroy_image(mlx->cont, mlx->collect);
+	mlx_destroy_image(mlx->cont, mlx->player);
+	mlx_destroy_image(mlx->cont, mlx->wall);
+	mlx_destroy_image(mlx->cont, mlx->floor);
+	mlx_destroy_window(mlx->cont, mlx->win);
+    mlx_destroy_context(mlx->cont);
 }
