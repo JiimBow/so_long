@@ -1,43 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   player_pos.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/11 13:48:21 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/11 16:34:27 by jodone           ###   ########.fr       */
+/*   Created: 2025/11/12 13:36:07 by jodone            #+#    #+#             */
+/*   Updated: 2025/11/12 15:11:15 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <get_next_line.h>
-
-char	**load_map(const char *file)
+int	player_y(char **map)
 {
-	int		fd;
-	char	**tab;
-	int		i;
-
-	fd = open(file, O_RDONLY);
-	i = 0;
-	while (1)
+	int	x;
+	int	y;
+	
+	x = 0;
+	y = 0;
+	while (map[y])
 	{
-		if (get_next_line(fd) == NULL)
-			break;
-		i++;
+		x = 0;
+		while (map[y][x])
+		{
+			if (map[y][x] == 'P')
+				return (y);
+			x++;
+		}
+		y++;
 	}
-	tab = malloc(((i + 1) * sizeof(char *)));
-	close(fd);
-	fd = open(file, O_RDONLY);
-	i = 0;
-	while (1)
-	{
-		tab[i] = get_next_line(fd);
-		if (tab[i] == NULL)
-			break;
-		i++;
-	}
-	close(fd);
-	return (tab);
+	return (0);
 }
 
+int	player_x(char **map)
+{
+	int	x;
+	int	y;
+	
+	x = 0;
+	y = 0;
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+		{
+			if (map[y][x] == 'P')
+				return (x);
+			x++;
+		}
+		y++;
+	}
+	return (0);
+}

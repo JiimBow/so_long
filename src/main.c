@@ -6,117 +6,78 @@
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 11:20:22 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/11 18:45:06 by jodone           ###   ########.fr       */
+/*   Updated: 2025/11/12 15:16:39 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
-#include <mlx_extended.h>
-
-char	**load_map(const char *file);
-
-typedef struct
-{
-	mlx_context	cont;
-	mlx_window	win;
-	mlx_image	wall;
-	mlx_image	floor;
-	mlx_image	player;
-	mlx_image	collect;
-	mlx_image	exit;
-} mlx_t;
+#include <so_long.h>
 
 void	key_hook(int key, void *param)
 {
 	// w = 26, a = 4, s = 22, d = 7, space = 44
-	static int x = 1;
-	static int y = 1;
+	t_mlx *mlx;
+
+	mlx = (t_mlx *)param;
 	if (key == 41)
-		mlx_loop_end((mlx_context)param);	
-}
-
-void	window_hook(int event, void *param)
-{
-	if (event == 0)
-		mlx_loop_end((mlx_context)param);
-}
-
-int	count_height(char **map)
-{
-	int	i;
-	
-	i = 0;
-	while (map[i])
-		i++;
-	return (i);
-}
-
-int	count_width(char **map)
-{
-	int	i;
-	
-	i = 0;
-	while (map[0][i])
-		i++;
-	return (i);
-}
-
-void	display_map(mlx_t *mlx, char **map)
-{
-	int	x;
-	int	y;
-	int	w;
-	int	h;
-
-	x = 0;
-	y = 0;
-	h = -1;
-	while (map[y])
+		mlx_loop_end(mlx->cont);
+	else if (key == 26)
 	{
-		w = 1;
-		x = 0;
-		while (map[y][x])
-		{
-			if (map[y][x] == '1')
-				mlx_put_transformed_image_to_window(mlx->cont, mlx->win, mlx->wall, w, h, 0.1358f, 0.1358f, 0);
-			else if (map[y][x] == 'P')
-			{
-				mlx_put_transformed_image_to_window(mlx->cont, mlx->win, mlx->floor, w, h, 0.1358f, 0.1358f, 0);
-				mlx_put_transformed_image_to_window(mlx->cont, mlx->win, mlx->player, w, h - 50, 0.75f, 0.75f, 0);
-			}
-			else if (map[y][x] == 'C')
-			{
-				mlx_put_transformed_image_to_window(mlx->cont, mlx->win, mlx->floor, w, h, 0.1358f, 0.1358f, 0);
-				mlx_put_transformed_image_to_window(mlx->cont, mlx->win, mlx->collect, w + 10, h, 0.60f, 0.60f, 0);
-			}
-			else if (map[y][x] == 'E')
-			{
-				mlx_put_transformed_image_to_window(mlx->cont, mlx->win, mlx->floor, w, h, 0.1358f, 0.1358f, 0);
-				mlx_put_transformed_image_to_window(mlx->cont, mlx->win, mlx->exit, w + 15, h + 15, 0.17f, 0.17f, 0);
-			}
-			else if (map[y][x] != '\n')
-				mlx_put_transformed_image_to_window(mlx->cont, mlx->win, mlx->floor, w, h, 0.1358f, 0.1358f, 0);
-			w += 100;
-			x++;
-		}
-		y++;
-		h += 100;
+		mlx_clear_window(mlx->cont, mlx->win, (mlx_color){0});
+		change_map(mlx->map, 'w', mlx->splayer.posx, mlx->splayer.posy);
+		display_map(mlx, mlx->map);
+	}
+	else if (key == 4)
+	{
+		mlx_clear_window(mlx->cont, mlx->win, (mlx_color){0});
+		change_map(mlx->map, 'a', mlx->splayer.posx, mlx->splayer.posy);
+		display_map(mlx, mlx->map);
+	}
+	else if (key == 22)
+	{
+		mlx_clear_window(mlx->cont, mlx->win, (mlx_color){0});
+		change_map(mlx->map, 's', mlx->splayer.posx, mlx->splayer.posy);
+		display_map(mlx, mlx->map);
+	}
+	else if (key == 7)
+	{
+		mlx_clear_window(mlx->cont, mlx->win, (mlx_color){0});
+		change_map(mlx->map, 'd', mlx->splayer.posx, mlx->splayer.posy);
+		display_map(mlx, mlx->map);
 	}
 }
 
+void	window_hook(int event, void *par)
+{
+	if (event == 0)
+		mlx_loop_end((mlx_context)par);
+}
+
+// int	update(void	*param)
+// {
+// 	t_mlx *mlx;
+
+// 	mlx = (t_mlx *)param;
+// 	mlx_clear_window(mlx->cont, mlx->win, (mlx_color){0});
+// 	display_map(mlx, mlx->map);
+// }
+
 int main(void)
 {
-	mlx_t mlx;
+	t_mlx mlx;
 	
     mlx.cont = mlx_init();
 
-	char	**map;
-	map = load_map("./maps/tuto.ber");
+	mlx.map = load_map("./maps/tuto.ber");
+	mlx.splayer.posx = player_x(mlx.map);
+	mlx.splayer.posy = player_y(mlx.map);
+	if (mlx.splayer.posx == 0 || mlx.splayer.posy == 0)
+		mlx_loop_end(mlx.cont);
 
 	mlx_window_create_info info = { 0 };
 	info.title = "test";
-	info.width = (count_width(map) - 1) * 100;
-	info.height = count_height(map) * 100;
+	// regler taille de fenetre sur max 1920 * 1080
+	info.width = (count_width(mlx.map) - 1) * 100;
+	info.height = count_height(mlx.map) * 100;
 	info.is_resizable = 1;
 	mlx.win = mlx_new_window(mlx.cont, &info);
 
@@ -128,10 +89,10 @@ int main(void)
 	mlx.collect = mlx_new_image_from_file(mlx.cont, "./textures/collect.png", &img_width, &img_height);
 	mlx.exit = mlx_new_image_from_file(mlx.cont, "./textures/exit.png", &img_width, &img_height);
 
-	display_map(&mlx, map);
+	display_map(&mlx, mlx.map);
 	
-	mlx_on_event(mlx.cont, mlx.win, MLX_KEYDOWN, key_hook, mlx.cont);
-	mlx_on_event(mlx.cont, mlx.win, MLX_WINDOW_EVENT, window_hook, mlx.cont);
+	mlx_on_event(mlx.cont, mlx.win, MLX_KEYDOWN, key_hook, &mlx);
+	mlx_on_event(mlx.cont, mlx.win, MLX_WINDOW_EVENT, window_hook, &mlx);
 
 	mlx_loop(mlx.cont);
 

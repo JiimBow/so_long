@@ -6,7 +6,7 @@
 #    By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/06 10:31:35 by jodone            #+#    #+#              #
-#    Updated: 2025/11/11 14:17:15 by jodone           ###   ########.fr        #
+#    Updated: 2025/11/12 14:54:22 by jodone           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,10 @@ MLX_DIR= mlx/
 SRC_DIR= src/
 
 SRC= $(SRC_DIR)main.c \
-	$(SRC_DIR)map.c
+	$(SRC_DIR)load_map.c \
+	$(SRC_DIR)map_init.c \
+	$(SRC_DIR)player_pos.c \
+	$(SRC_DIR)player_move.c
 
 INCLUDES=-I include \
 		-I Great_Libft/Libft \

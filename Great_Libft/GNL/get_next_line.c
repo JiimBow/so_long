@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 09:59:48 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/06 10:30:12 by jodone           ###   ########.fr       */
+/*   Updated: 2025/11/12 12:39:47 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	*buff_read(int fd, char *stash)
 			break ;
 		buffer[bytes_read] = 0;
 		index = loop_breaker(buffer);
-		stash = ft_strjoin(stash, buffer);
+		stash = gnl_strjoin(stash, buffer);
 	}
 	free(buffer);
 	return (stash);
