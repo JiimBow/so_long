@@ -6,7 +6,7 @@
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 13:48:21 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/12 13:35:03 by jodone           ###   ########.fr       */
+/*   Updated: 2025/11/13 17:43:32 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	**load_map(const char *file)
 	while (1)
 	{
 		if (get_next_line(fd) == NULL)
-			break;
+			break ;
 		i++;
 	}
 	tab = malloc(((i + 1) * sizeof(char *)));
@@ -34,7 +34,7 @@ char	**load_map(const char *file)
 	{
 		tab[i] = get_next_line(fd);
 		if (tab[i] == NULL)
-			break;
+			break ;
 		i++;
 	}
 	close(fd);
@@ -44,7 +44,7 @@ char	**load_map(const char *file)
 int	count_height(char **map)
 {
 	int	i;
-	
+
 	i = 0;
 	while (map[i])
 		i++;
@@ -54,9 +54,9 @@ int	count_height(char **map)
 int	count_width(char **map)
 {
 	int	i;
-	
+
 	i = 0;
 	while (map[0][i])
 		i++;
-	return (i);
+	return (i - 1);
 }

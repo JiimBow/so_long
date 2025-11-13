@@ -6,15 +6,17 @@
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 13:36:07 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/12 16:03:39 by jodone           ###   ########.fr       */
+/*   Updated: 2025/11/13 17:19:36 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <so_long.h>
 
 int	pos_y(char **map, char c)
 {
 	int	x;
 	int	y;
-	
+
 	x = 0;
 	y = 0;
 	while (map[y])
@@ -35,7 +37,7 @@ int	pos_x(char **map, char c)
 {
 	int	x;
 	int	y;
-	
+
 	x = 0;
 	y = 0;
 	while (map[y])

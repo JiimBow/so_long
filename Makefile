@@ -6,7 +6,7 @@
 #    By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/06 10:31:35 by jodone            #+#    #+#              #
-#    Updated: 2025/11/12 18:07:16 by jodone           ###   ########.fr        #
+#    Updated: 2025/11/13 18:00:11 by jodone           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,10 +18,12 @@ SRC_DIR= src/
 
 SRC= $(SRC_DIR)main.c \
 	$(SRC_DIR)load_map.c \
-	$(SRC_DIR)map_init.c \
+	$(SRC_DIR)put_map.c \
 	$(SRC_DIR)player_pos.c \
 	$(SRC_DIR)player_move.c \
-	$(SRC_DIR)ft_destroy.c
+	$(SRC_DIR)ft_destroy.c \
+	$(SRC_DIR)win_init.c \
+	$(SRC_DIR)check_map.c 
 
 INCLUDES=-I include \
 		-I Great_Libft/Libft \
