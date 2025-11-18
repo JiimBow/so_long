@@ -6,7 +6,7 @@
 #    By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/06 10:31:35 by jodone            #+#    #+#              #
-#    Updated: 2025/11/17 14:24:30 by jodone           ###   ########.fr        #
+#    Updated: 2025/11/18 15:38:55 by jodone           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ SRC_BONUS= $(SRC_BONUS_DIR)so_long_bonus.c \
 			$(SRC_BONUS_DIR)ft_destroy_bonus.c \
 			$(SRC_BONUS_DIR)win_init_bonus.c \
 			$(SRC_BONUS_DIR)check_map_bonus.c \
-			$(SRC_BONUS_DIR)map_is_winable_bonus.c
+			$(SRC_BONUS_DIR)map_is_winable_bonus.c \
+			$(SRC_BONUS_DIR)idle_frame_bonus.c
 
 INCLUDES=-I include \
 		-I Great_Libft/Libft \

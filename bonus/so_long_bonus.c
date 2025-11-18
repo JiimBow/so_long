@@ -6,7 +6,7 @@
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 11:20:22 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/18 11:39:09 by jodone           ###   ########.fr       */
+/*   Updated: 2025/11/18 16:36:39 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	update(void	*param)
 	mlx = (t_mlx *)param;
 	mlx->frame++;
 	mlx_clear_window(mlx->cont, mlx->win, (mlx_color){0});
-	display_map(mlx);
+	display_map(mlx, 0, 0);
 	mlx_string_put(mlx->cont, mlx->win, 20, 50,
 		(mlx_color){.rgba = 0xFFFFFFFF}, ft_itoa(mlx->nbmove));
 	if (exit_cond(mlx))
@@ -61,7 +61,7 @@ int	main(int ac, char **av)
 	mlx.win = mlx_new_window(mlx.cont, &info);
 	image_loader(&mlx);
 	mlx_set_font_scale(mlx.cont, "./textures/font.ttf", 50);
-	mlx_set_fps_goal(mlx.cont, 45);
+	mlx_set_fps_goal(mlx.cont, 60);
 	mlx_on_event(mlx.cont, mlx.win, MLX_KEYDOWN, key_hook, &mlx);
 	mlx_on_event(mlx.cont, mlx.win, MLX_WINDOW_EVENT, window_hook, mlx.cont);
 	mlx_add_loop_hook(mlx.cont, update, &mlx);

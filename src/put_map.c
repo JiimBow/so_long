@@ -6,7 +6,7 @@
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 12:27:26 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/17 17:49:17 by jodone           ###   ########.fr       */
+/*   Updated: 2025/11/18 15:45:42 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ void	put_map_wall(t_mlx *mlx, char **map)
 void	collec_idle(t_mlx *mlx, int x, int y)
 {
 	mlx_put_transformed_image_to_window(mlx->cont, mlx->win,
-		mlx->collect, (100 * x) + 11, (100 * y) + 1, 1, 1, 0);
+		mlx->collect, (100 * x) - 18, (100 * y) - 15, 1.8, 1.8, 0);
 	mlx_put_transformed_image_to_window(mlx->cont, mlx->win,
-		mlx->hair, (100 * x) + 39, (100 * y) + 5, 0.5f, 0.5f, 0);
+		mlx->hair1, (100 * x) - 18, (100 * y) - 15, 1.8, 1.8, 0);
 }
 
 void	display_map(t_mlx *mlx)
@@ -80,7 +80,7 @@ void	display_map(t_mlx *mlx)
 		{
 			if (mlx->map[y][x] == 'P')
 				mlx_put_transformed_image_to_window(mlx->cont, mlx->win,
-					mlx->player, (100 * x) + 25, (100 * y) + 13, 0.3f, 0.3f, 0);
+					mlx->player, (100 * x) - 64, (100 * y) - 60, 2, 2, 0);
 			else if (mlx->map[y][x] == 'C')
 				collec_idle(mlx, x, y);
 			x++;

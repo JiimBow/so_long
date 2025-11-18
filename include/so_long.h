@@ -6,7 +6,7 @@
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 12:28:27 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/17 17:43:59 by jodone           ###   ########.fr       */
+/*   Updated: 2025/11/18 15:52:58 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,7 @@ typedef struct s_mlx
 	mlx_image	floor;
 	mlx_image	player;
 	mlx_image	collect;
-	mlx_image	collect2;
-	mlx_image	collect3;
-	mlx_image	hair;
+	mlx_image	hair1;
 	mlx_image	exit;
 	char		**map;
 	t_player	splay;

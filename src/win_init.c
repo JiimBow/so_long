@@ -6,7 +6,7 @@
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 15:51:50 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/17 17:44:29 by jodone           ###   ########.fr       */
+/*   Updated: 2025/11/18 16:06:05 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ void	image_loader(t_mlx *mlx)
 	mlx->wall = mlx_new_image_from_file(mlx->cont,
 			"./textures/wall.jpg", &wid, &hei);
 	mlx->player = mlx_new_image_from_file(mlx->cont,
-			"./textures/play1.png", &wid, &hei);
+			"./textures/player.png", &wid, &hei);
 	mlx->collect = mlx_new_image_from_file(mlx->cont,
 			"./textures/col1.png", &wid, &hei);
-	mlx->hair = mlx_new_image_from_file(mlx->cont,
-			"./textures/hair.png", &wid, &hei);
+	mlx->hair1 = mlx_new_image_from_file(mlx->cont,
+			"./textures/hair1.png", &wid, &hei);
 	mlx->exit = mlx_new_image_from_file(mlx->cont,
 			"./textures/exit.png", &wid, &hei);
 }
