@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 11:20:22 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/13 18:01:02 by jodone           ###   ########.fr       */
+/*   Updated: 2025/11/17 13:31:07 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,17 @@
 
 void	key_hook(int key, void *param)
 {
-	t_mlx	*mlx;
+	t_mlx		*mlx;
+	static int	nbmove = 0;
 
 	mlx = (t_mlx *)param;
 	if (key == 41)
 		mlx_loop_end(mlx->cont);
-	change_map(mlx, key);
+	if (change_map(mlx, key) == 1)
+	{
+		nbmove++;
+		ft_printf("%d\n", nbmove);
+	}
 }
 
 void	window_hook(int event, void *par)
@@ -39,23 +44,26 @@ void	update(void	*param)
 		mlx_loop_end(mlx->cont);
 }
 
-int	main(void)
+int	main(int ac, char **av)
 {
 	t_mlx					mlx;
-	mlx_window_create_info	info = {0};
+	mlx_window_create_info	info;
 
 	mlx.cont = mlx_init();
-	mlx.map = load_map("./maps/firstmap.ber");
-	// if (check_map(mlx.map))
-	// 	mlx_destroy_context(mlx.cont);
-	mlx.splay.posx = pos_x(mlx.map, 'P');
-	mlx.splay.posy = pos_y(mlx.map, 'P');
-	mlx.sexit.posx = pos_x(mlx.map, 'E');
-	mlx.sexit.posy = pos_y(mlx.map, 'E');
-	if (mlx.splay.posx == 0 || mlx.splay.posy == 0)
-		mlx_loop_end(mlx.cont);
+	ft_bzero(&info, sizeof(info));
+	if (ac != 2)
+		return (0);
+	mlx.map = load_map(av[1]);
+	set_pos(&mlx);
 	mlx.nbcollect = count_coll(mlx.map);
-	win_init(mlx.map, &info);
+	if (check_map(mlx.map, 0, 0) == 1
+		|| map_is_win(av[1], mlx.splay.posx, mlx.splay.posy) == 0
+		|| win_init(mlx.map, &info) == 0)
+	{
+		ft_printf("%s\n", "Error\nMap not good or too large");
+		mlx_destroy_context(mlx.cont);
+		return (0);
+	}
 	mlx.win = mlx_new_window(mlx.cont, &info);
 	image_loader(&mlx);
 	mlx_on_event(mlx.cont, mlx.win, MLX_KEYDOWN, key_hook, &mlx);

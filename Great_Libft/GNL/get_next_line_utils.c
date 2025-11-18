@@ -6,13 +6,13 @@
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 09:59:36 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/12 12:39:35 by jodone           ###   ########.fr       */
+/*   Updated: 2025/11/18 10:45:07 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *str)
+size_t	gnl_strlen(const char *str)
 {
 	int	i;
 
@@ -22,7 +22,7 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	*gnl_calloc(size_t nmemb, size_t size)
 {
 	char			*result;
 	unsigned int	i;
@@ -46,22 +46,22 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	return (result);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*gnl_substr(char const *s, unsigned int start, size_t len)
 {
 	char			*result;
 	unsigned int	lensrc;
 
 	if (!s)
 		return (NULL);
-	lensrc = ft_strlen(s);
+	lensrc = gnl_strlen(s);
 	if (start >= lensrc)
 	{
-		result = ft_calloc(1, 1);
+		result = gnl_calloc(1, 1);
 		return (result);
 	}
 	if (len > lensrc - start)
 		len = lensrc - start;
-	result = ft_calloc((len + 1), sizeof(char));
+	result = gnl_calloc((len + 1), sizeof(char));
 	if (!result)
 		return (NULL);
 	lensrc = 0;
@@ -79,11 +79,11 @@ char	*gnl_strjoin(char *s1, char *s2)
 
 	if (!s1)
 	{
-		tab = ft_substr(s2, 0, ft_strlen(s2));
+		tab = gnl_substr(s2, 0, gnl_strlen(s2));
 		return (tab);
 	}
-	lens1 = ft_strlen(s1);
-	tab = ft_calloc((lens1 + ft_strlen(s2)) + 1, sizeof(char));
+	lens1 = gnl_strlen(s1);
+	tab = gnl_calloc((lens1 + gnl_strlen(s2)) + 1, sizeof(char));
 	if (!tab)
 		return (NULL);
 	i = 0;

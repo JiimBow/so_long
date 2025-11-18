@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 12:28:27 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/17 17:43:59 by jodone           ###   ########.fr       */
+/*   Updated: 2025/11/18 10:01:36 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef SO_LONG_BONUS_H
+# define SO_LONG_BONUS_H
 
 # include <mlx.h>
 # include <mlx_extended.h>
@@ -26,8 +26,8 @@
 
 typedef struct s_player
 {
-	int	posx;
-	int	posy;
+	int			posx;
+	int			posy;
 }	t_player;
 
 typedef struct s_exit
@@ -42,7 +42,10 @@ typedef struct s_mlx
 	mlx_window	win;
 	mlx_image	wall;
 	mlx_image	floor;
-	mlx_image	player;
+	mlx_image	play1;
+	mlx_image	play2;
+	mlx_image	play3;
+	mlx_image	play4;
 	mlx_image	collect;
 	mlx_image	collect2;
 	mlx_image	collect3;
@@ -52,6 +55,8 @@ typedef struct s_mlx
 	t_player	splay;
 	t_exit		sexit;
 	int			nbcollect;
+	int			frame;
+	int			nbmove;
 }	t_mlx;
 
 char	**load_map(const char *file);
@@ -69,5 +74,6 @@ int		exit_cond(t_mlx *mlx);
 int		count_coll(char **map);
 int		map_is_win(char *file_map, int x, int y);
 int		win_init(char **map, mlx_window_create_info *info);
+int		check_game(t_mlx *mlx, mlx_window_create_info *info, char *av1);
 
 #endif

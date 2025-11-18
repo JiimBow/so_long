@@ -6,7 +6,7 @@
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 09:59:38 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/12 12:40:10 by jodone           ###   ########.fr       */
+/*   Updated: 2025/11/18 10:49:09 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@
 # include <stdio.h>
 
 char	*get_next_line(int fd);
-void	*ft_calloc(size_t nmemb, size_t size);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-size_t	ft_strlen(const char *str);
+void	*gnl_calloc(size_t nmemb, size_t size);
+char	*gnl_substr(char const *s, unsigned int start, size_t len);
+size_t	gnl_strlen(const char *str);
 char	*gnl_strjoin(char *s1, char *s2);
 
 #endif

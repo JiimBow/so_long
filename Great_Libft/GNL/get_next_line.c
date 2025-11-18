@@ -6,7 +6,7 @@
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 09:59:48 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/12 12:39:47 by jodone           ###   ########.fr       */
+/*   Updated: 2025/11/18 10:46:05 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 char	*rest_line(char *stash)
 {
 	char	*new_stash;
-	int		len_stash;
+	int		l_stash;
 
 	if (!stash)
 		return (NULL);
-	len_stash = 0;
-	while (stash[len_stash] && stash[len_stash] != '\n')
-		len_stash++;
-	new_stash = ft_substr(stash, len_stash + 1, ft_strlen(stash) - len_stash);
+	l_stash = 0;
+	while (stash[l_stash] && stash[l_stash] != '\n')
+		l_stash++;
+	new_stash = gnl_substr(stash, l_stash + 1, gnl_strlen(stash) - l_stash);
 	free(stash);
 	return (new_stash);
 }
@@ -37,7 +37,7 @@ char	*add_line(char *stash)
 		return (NULL);
 	while (stash[len] && stash[len] != '\n')
 		len++;
-	result = ft_substr(stash, 0, len + 1);
+	result = gnl_substr(stash, 0, len + 1);
 	return (result);
 }
 
@@ -63,7 +63,7 @@ char	*buff_read(int fd, char *stash)
 	ssize_t	bytes_read;
 	int		index;
 
-	buffer = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
+	buffer = gnl_calloc((BUFFER_SIZE + 1), sizeof(char));
 	if (!buffer)
 		return (NULL);
 	index = 1;
