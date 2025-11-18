@@ -6,7 +6,7 @@
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 15:51:50 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/17 17:50:33 by jodone           ###   ########.fr       */
+/*   Updated: 2025/11/18 11:38:38 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	image_player(t_mlx *mlx)
 {
 	int	wid;
 	int	hei;
-	
+
 	mlx->play1 = mlx_new_image_from_file(mlx->cont,
 			"./textures/play1.png", &wid, &hei);
 	mlx->play2 = mlx_new_image_from_file(mlx->cont,

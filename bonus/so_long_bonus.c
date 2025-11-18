@@ -6,7 +6,7 @@
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 11:20:22 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/18 11:15:21 by jodone           ###   ########.fr       */
+/*   Updated: 2025/11/18 11:39:09 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	update(void	*param)
 	mlx->frame++;
 	mlx_clear_window(mlx->cont, mlx->win, (mlx_color){0});
 	display_map(mlx);
-	mlx_string_put(mlx->cont, mlx->win, 20, 50, (mlx_color){ .rgba = 0xFFFFFFFF }, ft_itoa(mlx->nbmove));
+	mlx_string_put(mlx->cont, mlx->win, 20, 50,
+		(mlx_color){.rgba = 0xFFFFFFFF}, ft_itoa(mlx->nbmove));
 	if (exit_cond(mlx))
 		mlx_loop_end(mlx->cont);
 }
