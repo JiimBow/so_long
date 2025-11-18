@@ -6,7 +6,7 @@
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:25:31 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/14 10:35:30 by jodone           ###   ########.fr       */
+/*   Updated: 2025/11/18 17:40:29 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,18 @@ int	check_map(char **map, int x, int y)
 	}
 	if (check_item(map) == 0)
 		return (1);
+	return (0);
+}
+
+int	check_game(t_mlx *mlx, mlx_window_create_info *info, char *av1)
+{
+	if (check_map(mlx->map, 0, 0) == 1
+		|| map_is_win(av1, mlx->splay.posx, mlx->splay.posy) == 0
+		|| win_init(mlx->map, info) == 0)
+	{
+		ft_printf("%s\n", "Error\nMap not good or too large");
+		mlx_destroy_context(mlx->cont);
+		return (1);
+	}
 	return (0);
 }

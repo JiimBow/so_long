@@ -6,7 +6,7 @@
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 12:28:27 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/18 15:52:58 by jodone           ###   ########.fr       */
+/*   Updated: 2025/11/18 18:12:21 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int		count_width(char **map);
 int		pos_y(char **map, char c);
 int		pos_x(char **map, char c);
 void	display_map(t_mlx *mlx);
-int		check_map(char **map, int x, int y);
 int		change_map(t_mlx *mlx, int key);
 void	ft_destroy(void *param);
 void	image_loader(t_mlx *mlx);
@@ -67,5 +66,6 @@ int		exit_cond(t_mlx *mlx);
 int		count_coll(char **map);
 int		map_is_win(char *file_map, int x, int y);
 int		win_init(char **map, mlx_window_create_info *info);
+int		check_game(t_mlx *mlx, mlx_window_create_info *info, char *av1);
 
 #endif
