@@ -6,17 +6,30 @@
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 17:46:14 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/18 15:50:05 by jodone           ###   ########.fr       */
+/*   Updated: 2025/11/19 17:16:14 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <so_long.h>
 
-void	ft_destroy(void *param)
+void	ft_free(char **tab)
 {
-	t_mlx	*mlx;
+	int	i;
 
-	mlx = (t_mlx *)param;
+	i = 0;
+	while (tab[i] != NULL)
+		i++;
+	while (i >= 0)
+	{
+		free(tab[i]);
+		i--;
+	}
+	free(tab);
+}
+
+void	ft_destroy(t_mlx *mlx)
+{
+	ft_free(mlx->map);
 	mlx_destroy_image(mlx->cont, mlx->exit);
 	mlx_destroy_image(mlx->cont, mlx->collect);
 	mlx_destroy_image(mlx->cont, mlx->hair1);

@@ -6,11 +6,27 @@
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 17:46:14 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/18 18:07:07 by jodone           ###   ########.fr       */
+/*   Updated: 2025/11/19 17:07:04 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <so_long.h>
 #include <so_long_bonus.h>
+
+void	ft_free(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i] != NULL)
+		i++;
+	while (i >= 0)
+	{
+		free(tab[i]);
+		i--;
+	}
+	free(tab);
+}
 
 void	destroy_slime(t_mlx *mlx)
 {
@@ -26,6 +42,7 @@ void	destroy_slime(t_mlx *mlx)
 
 void	ft_destroy(t_mlx *mlx)
 {
+	ft_free(mlx->map);
 	mlx_destroy_image(mlx->cont, mlx->exit);
 	mlx_destroy_image(mlx->cont, mlx->coll.collect1);
 	mlx_destroy_image(mlx->cont, mlx->coll.collect2);

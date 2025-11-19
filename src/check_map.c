@@ -6,7 +6,7 @@
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:25:31 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/18 17:40:29 by jodone           ###   ########.fr       */
+/*   Updated: 2025/11/19 17:45:31 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	count_coll(char **map)
 
 	count = 0;
 	y = 0;
+	if (!map)
+		return (0);
 	while (map[y])
 	{
 		x = 0;
@@ -90,6 +92,8 @@ int	check_map(char **map, int x, int y)
 
 int	check_game(t_mlx *mlx, mlx_window_create_info *info, char *av1)
 {
+	set_pos(mlx);
+	mlx->nbcollect = count_coll(mlx->map);
 	if (check_map(mlx->map, 0, 0) == 1
 		|| map_is_win(av1, mlx->splay.posx, mlx->splay.posy) == 0
 		|| win_init(mlx->map, info) == 0)

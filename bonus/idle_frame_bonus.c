@@ -6,10 +6,11 @@
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 15:38:59 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/18 18:07:24 by jodone           ###   ########.fr       */
+/*   Updated: 2025/11/19 17:07:30 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <so_long.h>
 #include <so_long_bonus.h>
 
 void	hair_idle(t_mlx *mlx, int x, int y)

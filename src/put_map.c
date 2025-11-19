@@ -6,7 +6,7 @@
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 12:27:26 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/18 15:45:42 by jodone           ###   ########.fr       */
+/*   Updated: 2025/11/19 17:15:02 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,26 +62,22 @@ void	collec_idle(t_mlx *mlx, int x, int y)
 		mlx->hair1, (100 * x) - 18, (100 * y) - 15, 1.8, 1.8, 0);
 }
 
-void	display_map(t_mlx *mlx)
+void	display_map(t_mlx *mlx, int x, int y)
 {
-	int	x;
-	int	y;
-
-	y = 0;
 	put_map_floor(mlx, mlx->map);
 	put_map_wall(mlx, mlx->map);
 	mlx_put_transformed_image_to_window(mlx->cont, mlx->win,
 		mlx->exit, (100 * mlx->sexit.posx) + 16,
 		(100 * mlx->sexit.posy) + 16, 0.17f, 0.17f, 0);
+	mlx_put_transformed_image_to_window(mlx->cont, mlx->win,
+		mlx->player, (100 * mlx->splay.posx) - 64,
+		(100 * mlx->splay.posy) - 60, 2, 2, 0);
 	while (mlx->map[y])
 	{
 		x = 0;
 		while (mlx->map[y][x])
 		{
-			if (mlx->map[y][x] == 'P')
-				mlx_put_transformed_image_to_window(mlx->cont, mlx->win,
-					mlx->player, (100 * x) - 64, (100 * y) - 60, 2, 2, 0);
-			else if (mlx->map[y][x] == 'C')
+			if (mlx->map[y][x] == 'C')
 				collec_idle(mlx, x, y);
 			x++;
 		}

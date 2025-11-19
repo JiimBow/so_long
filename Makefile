@@ -6,7 +6,7 @@
 #    By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/06 10:31:35 by jodone            #+#    #+#              #
-#    Updated: 2025/11/18 15:38:55 by jodone           ###   ########.fr        #
+#    Updated: 2025/11/19 17:22:43 by jodone           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRC_BONUS_DIR= bonus/
 SRC= $(SRC_DIR)so_long.c \
 	$(SRC_DIR)load_map.c \
 	$(SRC_DIR)put_map.c \
-	$(SRC_DIR)player_pos.c \
+	$(SRC_DIR)find_pos.c \
 	$(SRC_DIR)player_move.c \
 	$(SRC_DIR)ft_destroy.c \
 	$(SRC_DIR)win_init.c \
@@ -29,15 +29,16 @@ SRC= $(SRC_DIR)so_long.c \
 	$(SRC_DIR)map_is_winable.c
 
 SRC_BONUS= $(SRC_BONUS_DIR)so_long_bonus.c \
-			$(SRC_BONUS_DIR)load_map_bonus.c \
+			$(SRC_DIR)check_map.c \
+			$(SRC_DIR)map_is_winable.c \
+			$(SRC_DIR)find_pos.c \
+			$(SRC_DIR)load_map.c \
 			$(SRC_BONUS_DIR)put_map_bonus.c \
-			$(SRC_BONUS_DIR)player_pos_bonus.c \
 			$(SRC_BONUS_DIR)player_move_bonus.c \
 			$(SRC_BONUS_DIR)ft_destroy_bonus.c \
 			$(SRC_BONUS_DIR)win_init_bonus.c \
-			$(SRC_BONUS_DIR)check_map_bonus.c \
-			$(SRC_BONUS_DIR)map_is_winable_bonus.c \
-			$(SRC_BONUS_DIR)idle_frame_bonus.c
+			$(SRC_BONUS_DIR)idle_frame_bonus.c \
+			$(SRC_BONUS_DIR)slime_move_bonus.c
 
 INCLUDES=-I include \
 		-I Great_Libft/Libft \
@@ -48,21 +49,21 @@ INCLUDES=-I include \
 OBJECT=$(SRC:.c=.o)
 OBJECT_BONUS=$(SRC_BONUS:.c=.o)
 LIBFT= ./Great_Libft/g_libft.a
-CFLAGS=-Wall -Wextra -Werror -g $(LIBFT) $(MLX_DIR)libmlx.so -lSDL2
+CFLAGS=-Wall -Wextra -Werror -g 
 
 all: $(NAME)
 
 $(NAME): $(MLX_DIR)libmlx.so $(OBJECT) $(LIBFT)
-		$(CC) $(OBJECT) $(CFLAGS) -o $(NAME)
+		$(CC) $(OBJECT) $(CFLAGS) $(LIBFT) $(MLX_DIR)libmlx.so -lSDL2 -o $(NAME)
 
 bonus: $(MLX_DIR)libmlx.so $(OBJECT_BONUS) $(LIBFT)
-		$(CC) $(OBJECT_BONUS) $(CFLAGS) -o $(NAME_BONUS)
+		$(CC) $(OBJECT_BONUS) $(CFLAGS) $(LIBFT) $(MLX_DIR)libmlx.so -lSDL2 -o $(NAME_BONUS)
 
 $(LIBFT):
 		$(MAKE) -C Great_Libft
 
 %.o: %.c
-		$(CC) $(INCLUDES) -c $< -o $@
+		$(CC) $(INCLUDES) $(CFLAGS) -c $< -o $@
 
 $(MLX_DIR)libmlx.so:
 		git clone https://github.com/seekrs/MacroLibX.git -b v2.2.2 mlx

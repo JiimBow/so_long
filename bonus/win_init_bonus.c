@@ -6,11 +6,11 @@
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 15:51:50 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/18 18:07:38 by jodone           ###   ########.fr       */
+/*   Updated: 2025/11/19 17:08:28 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <so_long_bonus.h>
+#include <so_long.h>
 
 int	win_init(char **map, mlx_window_create_info *info)
 {

@@ -6,19 +6,14 @@
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 14:09:42 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/17 16:33:07 by jodone           ###   ########.fr       */
+/*   Updated: 2025/11/19 17:21:47 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <so_long.h>
 
-int	change_map(t_mlx *mlx, int key)
+int	change_map(t_mlx *mlx, int key, int delx, int dely)
 {
-	int	delx;
-	int	dely;
-
-	delx = 0;
-	dely = 0;
 	if (key == W)
 		dely--;
 	else if (key == A)
@@ -31,14 +26,23 @@ int	change_map(t_mlx *mlx, int key)
 		&& (delx != 0 || dely != 0))
 	{
 		if (mlx->map[mlx->splay.posy + dely][mlx->splay.posx + delx] == 'C')
+		{
 			mlx->nbcollect -= 1;
-		mlx->map[mlx->splay.posy][mlx->splay.posx] = '0';
-		mlx->map[mlx->splay.posy + dely][mlx->splay.posx + delx] = 'P';
+			mlx->map[mlx->splay.posy + dely][mlx->splay.posx + delx] = '0';
+		}
 		mlx->splay.posx += delx;
 		mlx->splay.posy += dely;
 		return (1);
 	}
 	return (0);
+}
+
+void	set_pos(t_mlx *mlx)
+{
+	mlx->splay.posx = pos_x(mlx->map, 'P');
+	mlx->splay.posy = pos_y(mlx->map, 'P');
+	mlx->sexit.posx = pos_x(mlx->map, 'E');
+	mlx->sexit.posy = pos_y(mlx->map, 'E');
 }
 
 int	exit_cond(t_mlx *mlx)

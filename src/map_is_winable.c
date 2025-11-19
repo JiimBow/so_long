@@ -6,7 +6,7 @@
 /*   By: jodone <jodone@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/14 12:32:57 by jodone            #+#    #+#             */
-/*   Updated: 2025/11/18 17:40:27 by jodone           ###   ########.fr       */
+/*   Updated: 2025/11/19 13:28:03 by jodone           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	map_pars(char **map, int x, int y, int nbcol)
 	if (map[y][x - 1] != '1' && map[y][x - 1] != 'A')
 		countcol += map_pars(map, x - 1, y, nbcol);
 	if (nbcol - countcol == 0)
-		return (1);
+		return (-1);
 	return (countcol);
 }
 
@@ -42,7 +42,11 @@ int	map_is_win(char *file_map, int x, int y)
 
 	tab = load_map(file_map);
 	nbcol = count_coll(tab) + 1;
-	if (map_pars(tab, x, y, nbcol) == 1)
+	if (map_pars(tab, x, y, nbcol) == -1)
+	{
+		ft_free(tab);
 		return (1);
+	}
+	ft_free(tab);
 	return (0);
 }
